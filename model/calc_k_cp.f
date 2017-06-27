@@ -225,7 +225,17 @@
                   ELSE
 ! the solids are not sufficiently packed to invoke the plastic stress
 ! model
-                     Kcp(IJK) = ZERO
+!***************************************************************************
+! KWU2017: As we changed the rdf, it leads to diverge at critical voidage
+                  IF(EP_g(IJK) < (ep_star_array(IJK)+0.05d0))
+                 
+                  Kcp(IJK) = (3.0d0*(EP_s(IJK)-3.0d0)*(EP_s(IJK)-3.0d0)**2 &
+                     -0.5d0*(EP_s(IJK)-1)**3.0d0)/(EP_s(IJK)-1)**6.0d0+&
+                     (2.0d0*EP_s(IJK)*(1-ep_star_array(IJK)-EP_s(IJK))**1.5d0 &
+                     -1.5d0*(1-ep_star_array(IJK)-EP_s(IJK))**(0.5d0)*&
+                     (0.58d0*EP_s(IJK)))/(1-ep_star_array(IJK)-EP_s(IJK))**3.0d0
+!***************************************************************************
+!                     Kcp(IJK) = ZERO
                   ENDIF
 ! end if not friction but sufficiently packed to invoke plastic pressure
 ! ----------------------------------------------------------------<<<
