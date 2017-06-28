@@ -23,11 +23,17 @@
 !   M o d u l e s
 !-----------------------------------------------
       Use usr
+      Use constant
       IMPLICIT NONE
 !-----------------------------------------------
 !   L o c a l   V a r i a b l e s
 !-----------------------------------------------
 !-----------------------------------------------
 !
+
+      Allocate( USRrdfg (DIMENSION_3, DIMENSION_M) )
+      
+      USRrdfg(:,1) = ZERO
+
       RETURN
       END SUBROUTINE USR_INIT_NAMELIST

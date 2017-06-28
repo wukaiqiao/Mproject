@@ -12,6 +12,8 @@
         DOUBLE PRECISION DUMMY_DP
 ! Solids phase frictional coefficient
         DOUBLE PRECISION usr_fricoef
+! Test files
+        DOUBLE PRECISION, DIMENSION(:, M), ALLOCATABLE :: USRrdfg
 ! Remember to initialize the usr-defined variables using usr_initialization
       CONTAINS   
 
