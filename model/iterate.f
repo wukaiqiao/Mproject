@@ -292,6 +292,7 @@
 ! JFD: modification for cartesian grid implementation
       IF(CARTESIAN_GRID) CALL CG_SET_OUTFLOW
 
+
 ! Solve energy equations
       IF (ENERGY_EQ) THEN
          CALL SOLVE_ENERGY_EQ (IER)

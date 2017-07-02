@@ -318,7 +318,7 @@
 !KWU2017*************************************************************
 IF(MMAX == 1) THEN
          IF(RDF_TYPE_ENUM == USR_RDF) THEN
-          WRITE(*,*) 'It worked'
+          WRITE(*,*) 'RDF worked'
          ELSE IF(RDF_TYPE_ENUM /= LEBOWITZ) THEN
               WRITE(ERR_MSG, 1601) trim(adjustl(RDF_TYPE))
               WRITE(*,*) 'It didnt work'

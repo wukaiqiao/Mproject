@@ -84,17 +84,25 @@
 
                EPCOR = EP_S(IJK,M) + EPP(IJK)
                EP_S_CP = ONE - EP_STAR_ARRAY(IJK)
-               IF (EPCOR>EP_S_CP .AND. EPP(IJK)>ZERO) THEN
-                  EPP(IJK) = UR_FAC(2)*EPP(IJK)
-
-                  IF(CARTESIAN_GRID) THEN
+                
+                DO WHILE (EPCOR>EP_S_CP .AND. EPP(IJK)>ZERO) 
+                   EPP(IJK) = UR_FAC(2)*EPP(IJK)
+                   EPCOR = EP_S(IJK,M) + EPP(IJK)
+                !   write (*,*)  'underrelex vodiage used',EPP(IJK),EPCOR,IJK
+                ENDDO
+ !KWU2017 cancel ----------------------------------------------->>>
+ !              IF (EPCOR>EP_S_CP .AND. EPP(IJK)>ZERO) THEN                  
+ !                 EPP(IJK) = UR_FAC(2)*EPP(IJK)
+ !                 write (*,*)  'underrelex vodiage used',EPP(IJK),EP_S(IJK,M),IJK
+ !                 IF(CARTESIAN_GRID) THEN
 ! JFD: Using a low value of CG_UR_FAC(2) for the cut cell tends to
 ! stabilize code (limits occurrence of negative void fraction)
-                     IF(CUT_CELL_AT(IJK)) EPP(IJK) = CG_UR_FAC(2)*EPP(IJK)
-                  ENDIF
+  !                   IF(CUT_CELL_AT(IJK)) EPP(IJK) = CG_UR_FAC(2)*EPP(IJK)
+  !                ENDIF
 
-                  EPCOR = EP_S(IJK,M) + EPP(IJK)
-               ENDIF
+   !               EPCOR = EP_S(IJK,M) + EPP(IJK)
+   !            ENDIF
+ !KWU2017 cancel ----------------------------------------------->>>  
                ROP_S(IJK,M) = MAX(ZERO,RO_S(IJK,M)*EPCOR)
             ENDIF
          ENDDO

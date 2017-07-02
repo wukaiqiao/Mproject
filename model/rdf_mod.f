@@ -413,8 +413,8 @@ CONTAINS
          G_0 = G_0CS(EPS)+(0.58D0*EPS**2)/((1-EP_star_array(IJK)-EPS)**(3/2))
          
          IF (G_0 < 0) THEN
-            G_0 = 10e12
-            write (*,*) 'Critical packing breaking',G_0,EPS,EP_star_array(IJK)
+            G_0 = 10e16
+            write (*,*) 'Critical packing breaking',G_0,EPS,IJK
          ENDIF   
 !             IF (IJK == 1000) THEN 
 !                  write (*,*) 'works',G_0,EPS,EP_star_array(IJK)

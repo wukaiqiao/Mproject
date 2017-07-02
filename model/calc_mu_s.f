@@ -252,8 +252,8 @@
       Mu_s_c(:,M) = Mu_s_v(:)
       LAMBDA_s_c(:,M)= Lambda_s_v(:)
       P_s_c(:,M) = P_s_v(:)
-      
-      CALL USR2(2)
+!KWU2017:CHange the KT viscosity      
+      CALL USR2(1)
 
       IF(BLENDING_STRESS) THEN
 ! blend plastic & viscous stresses (not available with friction)
@@ -277,7 +277,8 @@
          LAMBDA_s(:,M) = Lambda_s_p(:) + Lambda_s_v(:) + Lambda_s_f(:)
          P_s(:,M) = P_s_v(:) + P_s_f(:)
       ENDIF  ! end if/else (blending_stress)
-
+!KWU2017:Add yield stress ratio to the solid viscosity     
+     CALL USR2(2)
       RETURN
       END SUBROUTINE CALC_DEFAULT_MUs
 

@@ -222,20 +222,26 @@
                         blend =  blend_function(IJK)
                         Kcp(IJK) = (1.0d0-blend) * Kcp(IJK)
                      ENDIF
-                  ELSE
+                  
+                    
 ! the solids are not sufficiently packed to invoke the plastic stress
 ! model
+                  ELSE
+
+                  !***************************************************************************
+! KWU2017: See if this helps for accelerating convergence
+                      Kcp(IJK) = ZERO          
+!                      IF(EP_g(IJK) < (ep_star_array(IJK)+0.005d0)) THEN 
+ !                       
+ !                     Kcp(IJK) = (3.d0*(EP_s(IJK, M)-3.d0)*(EP_s(IJK, M)-3.d0)**2.d0-0.5d0*&
+ !                       (EP_s(IJK, M)-1)**3.0d0)/(EP_s(IJK, M)-1)**6.0d0 + &
+ !                       (2.0d0*EP_s(IJK, M)*(1-ep_star_array(IJK)-EP_s(IJK, M))**1.5d0 &
+ !                       -1.5d0*(1-ep_star_array(IJK)-EP_s(IJK, M))**(0.5d0)* &
+ !                       (0.58*EP_s(IJK, M)))/(1-ep_star_array(IJK)-EP_s(IJK, M))**3.d0
 !***************************************************************************
-! KWU2017: As we changed the rdf, it leads to diverge at critical voidage
-                  IF(EP_g(IJK) < (ep_star_array(IJK)+0.05d0))
-                 
-                  Kcp(IJK) = (3.0d0*(EP_s(IJK)-3.0d0)*(EP_s(IJK)-3.0d0)**2 &
-                     -0.5d0*(EP_s(IJK)-1)**3.0d0)/(EP_s(IJK)-1)**6.0d0+&
-                     (2.0d0*EP_s(IJK)*(1-ep_star_array(IJK)-EP_s(IJK))**1.5d0 &
-                     -1.5d0*(1-ep_star_array(IJK)-EP_s(IJK))**(0.5d0)*&
-                     (0.58d0*EP_s(IJK)))/(1-ep_star_array(IJK)-EP_s(IJK))**3.0d0
-!***************************************************************************
-!                     Kcp(IJK) = ZERO
+                     ! Write(*,*) 'Kcp viscous used'
+  !                    ENDIF
+                     
                   ENDIF
 ! end if not friction but sufficiently packed to invoke plastic pressure
 ! ----------------------------------------------------------------<<<
