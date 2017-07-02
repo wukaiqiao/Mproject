@@ -150,7 +150,7 @@
       IF(.NOT.CARTESIAN_GRID)  CALL WRITE_FLAGS
 
 ! Write the initial part of the special output file(s)
-      CALL WRITE_USR0
+      CALL WRITE_USR0(0,0)
 
 !$    CALL START_LOG
 !$    IF(DMP_LOG)WRITE (UNIT_LOG, *) ' '

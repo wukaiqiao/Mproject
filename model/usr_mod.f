@@ -12,7 +12,7 @@
         DOUBLE PRECISION DUMMY_DP
 ! Solids phase frictional coefficient
         DOUBLE PRECISION usr_fricoef
-        DOUBLE PRECISION ITERMU
+        DOUBLE PRECISION ITERMU, u_muprime, usr_ratio
         DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: USRrdfg
 
 ! Remember to initialize the usr-defined variables using usr_initialization

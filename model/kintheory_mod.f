@@ -564,7 +564,8 @@
 ! in the energy equation this term is multiplied by 3/2*n*kboltz*T
 ! leave multiplication of theta for source routine
              EDT_s_ip(IJK,M,M) = (3.d0/2.d0)*ROP_s(IJK,M)*nu0*zeta0_star
-
+  !KWU2017: modifying energy dissaption rate with Sun paper          
+  !           call usr2(3)
          ENDIF   ! end if (fluid_at)
       ENDDO   ! end do (ijk=ijkstart3,ijkend3)
 

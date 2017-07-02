@@ -194,7 +194,7 @@ SUBROUTINE USR2(INDEX2)
     
           mu_s_c(IJK,M) = mu_s_c(IJK,M)*Delta_tau
      !    lambda_s_c(IJK,M) = lambda_s_c(IJK,M)*Delta_tau
-          lambda_s_c(IJK,M) = ZERO
+          lambda_s_c(IJK,M) = ZERO  ! test to see if the lambda zero runs
           ! IF (IJK==1000) write(*,*) 'mu_s_c and lambda_s_c changed successfully', mu_s_c(IJK,M),lambda_s_c(IJK,M)
       ENDIF
   
@@ -202,12 +202,20 @@ SUBROUTINE USR2(INDEX2)
   !Subroutine called at end of CALC_DEFAULT_MUS(M)
             IF (mu_ys/=0) THEN
             ITERMU = mu_ys
-              
-            mu_s(IJK,M) = mu_s_c(IJK,M) + mu_ys
-                
-            ITERMU = mu_s(IJK,M)
+            u_muprime = mu_ys - ITERMU
+            usr_ratio = mu_ys / mu_s(IJK,M)
+            u_muprime= 1 - exp(-50000.d0* dsqrt(0.5*trD_s2(IJK,M)) / ((1-DeltaX) * ETA_SHEAR * P_s_c(IJK,M)))
+
+              IF (usr_ratio > 1000)  THEN
+               ITERMU = u_muprime * mu_ys
+              ENDIF
+            mu_s(IJK,M) = mu_s_c(IJK,M) + ITERMU 
+!           IF (IJK==1000) write(*,*) 'mu_s_v changed successfully',mu_ys,ITERMU
+
+            USRrdfg(IJK,M) = mu_ys 
             ENDIF
-     !      IF (IJK==1000) write(*,*) 'mu_s_v changed successfully',mu_s(IJK,M),mu_ys
+           
+           
       ENDIF
        
        
@@ -216,7 +224,6 @@ SUBROUTINE USR2(INDEX2)
   ! To be insert at calc_trasport_prop
 
       Dleta_gamma = beta*dsqrt(H_CE)/(K_K*M_ce)*Delta_tau
-
     
       IF (INDEX2 == 3) THEN
    ! If USR2 is called after dissipation calc., correct diss. terms
